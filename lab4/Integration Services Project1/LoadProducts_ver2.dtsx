@@ -1,0 +1,1753 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/25/2017 12:14:52 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PC"
+  DTS:CreatorName="PC\admin"
+  DTS:DTSID="{A671F6E8-2636-4B07-B361-1240643F03A2}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2344.23"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="LoadProducts_ver2"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{A2721DF9-8D56-4F0E-B1FB-7600D87E0EED}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{483E4028-B6F1-4115-A0D1-EC4AA79929D0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{036A4A65-6D7D-4838-95C9-345A0BEE5477}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE LastAddedProducts" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Задача потока данных"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Задача потока данных"
+      DTS:DTSID="{62D84A02-E40B-4C22-90E7-3937B44C99AF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Задача потока данных"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Задача потока данных\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Производный столбец;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;0"
+              description="Создает новые значения столбцов путем применения выражений к входным столбцам преобразования. Создает новые столбцы или перезаписывает существующие. Пример: объединение значений столбцов &quot;first name&quot; и &quot;last name&quot; и создание столбца &quot;full name&quot;."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных\Derived Column.Inputs[Вход производного столбца]"
+                  description="Ввод преобразования &quot;Производный столбец&quot;"
+                  name="Вход производного столбца">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Derived Column.Inputs[Вход производного столбца].Columns[SourseID]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="SourseID"
+                      errorOrTruncationOperation="Вычисление"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourseID]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Выражение производного столбца"
+                          name="Expression">[REPLACENULL](#{Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourseID]},"A")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Понятное выражение производного столбца"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SourseID,"A")</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Derived Column.Outputs[Выход производного столбца]"
+                  description="Выход по умолчанию преобразования &quot;Производный столбец&quot;"
+                  exclusionGroup="1"
+                  name="Выход производного столбца"
+                  synchronousInputId="Package\Задача потока данных\Derived Column.Inputs[Вход производного столбца]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Derived Column.Outputs[Вывод ошибок производного столбца]"
+                  description="Вывод ошибок преобразования &quot;Производный столбец&quot;"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок производного столбца"
+                  synchronousInputId="Package\Задача потока данных\Derived Column.Inputs[Вход производного столбца]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Derived Column.Outputs[Вывод ошибок производного столбца].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Derived Column.Outputs[Вывод ошибок производного столбца].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Derived Column.Outputs[Вывод ошибок производного столбца].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Derived Column.Outputs[Вывод ошибок производного столбца].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\Sourse A"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Источник &quot;OLE DB&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;7"
+              description="Источник &quot;OLE DB&quot;"
+              name="Sourse A"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+  ID SourceProductID,
+  Title,
+  Price
+FROM Products</property>
+                <property
+                  dataType="System.String"
+                  description="Переменная, содержащая команду SQL для выполнения."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Вызывает безусловное использование значение свойства DefaultCodePage при описании символьных данных."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Сопоставления между параметрами в команде SQL и переменными."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\Sourse A.Connections[OleDbConnection]"
+                  connectionManagerID="{894B7FF0-91B5-4879-A80B-17570E415B1D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SourceA]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;]"
+                  name="Выход источника &quot;OLE DB&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SourceProductID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[SourceProductID]"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SourceProductID]"
+                      name="SourceProductID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Title]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Title]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Title]"
+                      name="Title"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Price]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Price]"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Price]"
+                      name="Price"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[SourceProductID]"
+                      dataType="i4"
+                      name="SourceProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Title]"
+                      dataType="wstr"
+                      length="50"
+                      name="Title" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Price]"
+                      dataType="cy"
+                      name="Price" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;]"
+                  isErrorOut="true"
+                  name="Вывод ошибок источника &quot;OLE DB&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[SourceProductID]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[SourceProductID]"
+                      name="SourceProductID" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Title]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Title]"
+                      name="Title" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Price]"
+                      dataType="cy"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Price]"
+                      name="Price" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\Sourse B"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Источник &quot;OLE DB&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;7"
+              description="Источник &quot;OLE DB&quot;"
+              name="Sourse B"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+  ID SourceProductID,
+  'B' SourceID,
+  Title,
+  Price
+FROM Products</property>
+                <property
+                  dataType="System.String"
+                  description="Переменная, содержащая команду SQL для выполнения."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Вызывает безусловное использование значение свойства DefaultCodePage при описании символьных данных."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Сопоставления между параметрами в команде SQL и переменными."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\Sourse B.Connections[OleDbConnection]"
+                  connectionManagerID="{824DD913-4754-481C-8078-BFF75C049C30}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SourceB]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;]"
+                  name="Выход источника &quot;OLE DB&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SourceProductID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[SourceProductID]"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SourceProductID]"
+                      name="SourceProductID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SourceID]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[SourceID]"
+                      length="1"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SourceID]"
+                      name="SourceID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Title]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Title]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Title]"
+                      name="Title"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Price]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Price]"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Price]"
+                      name="Price"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[SourceProductID]"
+                      dataType="i4"
+                      name="SourceProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[SourceID]"
+                      codePage="1251"
+                      dataType="str"
+                      length="1"
+                      name="SourceID" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Title]"
+                      dataType="wstr"
+                      length="50"
+                      name="Title" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Price]"
+                      dataType="cy"
+                      name="Price" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;]"
+                  isErrorOut="true"
+                  name="Вывод ошибок источника &quot;OLE DB&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[SourceProductID]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[SourceProductID]"
+                      name="SourceProductID" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[SourceID]"
+                      codePage="1251"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[SourceID]"
+                      name="SourceID" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Title]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Title]"
+                      name="Title" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Price]"
+                      dataType="cy"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Price]"
+                      name="Price" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\To LastAddetProducts"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Назначение &quot;OLE DB&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;4"
+              description="Назначение &quot;OLE DB&quot;"
+              name="To LastAddetProducts"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">[dbo].[LastAddedProducts]</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Вызывает безусловное использование значение свойства DefaultCodePage при описании символьных данных."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, должны ли значения в столбцах идентификаторов копироваться в назначение. Если свойство имеет значение false, значения в столбцах идентификаторов будут созданы автоматически в месте назначения. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, будут ли в назначение вставляться значения NULL для столбцов, содержащих их. Значение false показывает, что если столбец имеет значение NULL, то в назначение будет вставлено его значение по умолчанию. Применяется только в случае, если включена быстрая загрузка."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Задает параметры быстрой загрузки. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Задает, когда выдаются сообщения о фиксации транзакции в ходе вставки данных. Значение 0 задает, что по окончании вставки данных будет выдано одно сообщение о фиксации транзакции. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\To LastAddetProducts.Connections[OleDbConnection]"
+                  connectionManagerID="{036A4A65-6D7D-4838-95C9-345A0BEE5477}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Target]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;]"
+                  errorOrTruncationOperation="Вставить"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения &quot;OLE DB&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[SourceProductID]"
+                      cachedDataType="i4"
+                      cachedName="SourceProductID"
+                      externalMetadataColumnId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SourceProductID]"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourceProductID]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Title]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Title"
+                      externalMetadataColumnId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Title]"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Title]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Price]"
+                      cachedDataType="cy"
+                      cachedName="Price"
+                      externalMetadataColumnId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Price]"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Price]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[SourseID]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="SourseID"
+                      externalMetadataColumnId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SourceID]"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourseID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SourceID]"
+                      codePage="1251"
+                      dataType="str"
+                      length="1"
+                      name="SourceID" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SourceProductID]"
+                      dataType="i4"
+                      name="SourceProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Title]"
+                      dataType="wstr"
+                      length="50"
+                      name="Title" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Price]"
+                      dataType="cy"
+                      name="Price" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\To LastAddetProducts.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения &quot;OLE DB&quot;"
+                  synchronousInputId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\To LastAddetProducts.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\To LastAddetProducts.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\To LastAddetProducts.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\To LastAddetProducts.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\To Products"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Назначение &quot;OLE DB&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;4"
+              description="Назначение &quot;OLE DB&quot;"
+              name="To Products"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">[dbo].[Products]</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Вызывает безусловное использование значение свойства DefaultCodePage при описании символьных данных."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, должны ли значения в столбцах идентификаторов копироваться в назначение. Если свойство имеет значение false, значения в столбцах идентификаторов будут созданы автоматически в месте назначения. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, будут ли в назначение вставляться значения NULL для столбцов, содержащих их. Значение false показывает, что если столбец имеет значение NULL, то в назначение будет вставлено его значение по умолчанию. Применяется только в случае, если включена быстрая загрузка."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Задает параметры быстрой загрузки. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Задает, когда выдаются сообщения о фиксации транзакции в ходе вставки данных. Значение 0 задает, что по окончании вставки данных будет выдано одно сообщение о фиксации транзакции. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\To Products.Connections[OleDbConnection]"
+                  connectionManagerID="{036A4A65-6D7D-4838-95C9-345A0BEE5477}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Target]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;]"
+                  errorOrTruncationOperation="Вставить"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения &quot;OLE DB&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[SourceProductID]"
+                      cachedDataType="i4"
+                      cachedName="SourceProductID"
+                      externalMetadataColumnId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SourceProductID]"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourceProductID]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Title]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Title"
+                      externalMetadataColumnId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Title]"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Title]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Price]"
+                      cachedDataType="cy"
+                      cachedName="Price"
+                      externalMetadataColumnId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Price]"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Price]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[SourseID]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="SourseID"
+                      externalMetadataColumnId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SourceID]"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourseID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Title]"
+                      dataType="wstr"
+                      length="50"
+                      name="Title" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Price]"
+                      dataType="cy"
+                      name="Price" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SourceID]"
+                      codePage="1251"
+                      dataType="str"
+                      length="1"
+                      name="SourceID" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SourceProductID]"
+                      dataType="i4"
+                      name="SourceProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[UpdatedOn]"
+                      dataType="dbTimeStamp"
+                      name="UpdatedOn" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\To Products.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения &quot;OLE DB&quot;"
+                  synchronousInputId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\To Products.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\To Products.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\To Products.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\To Products.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\Union All"
+              componentClassID="Microsoft.UnionAll"
+              contactInfo="Union All;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;1"
+              description="Объединяет строки из нескольких потоков данных без сортировки. Пример: добавление строк назад в поток данных после исправления ошибок. Если сортировка имеет значение, рекомендуется использовать преобразование &quot;Слияние&quot;."
+              name="Union All"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных\Union All.Inputs[Union All Вход 1]"
+                  name="Union All Вход 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Union All.Inputs[Union All Вход 1].Columns[SourceProductID]"
+                      cachedDataType="i4"
+                      cachedName="SourceProductID"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SourceProductID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID журнала преобразований выходного столбца"
+                          name="OutputColumnLineageID">#{Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourceProductID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Union All.Inputs[Union All Вход 1].Columns[Title]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Title"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Title]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID журнала преобразований выходного столбца"
+                          name="OutputColumnLineageID">#{Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Title]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Union All.Inputs[Union All Вход 1].Columns[Price]"
+                      cachedDataType="cy"
+                      cachedName="Price"
+                      lineageId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Price]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID журнала преобразований выходного столбца"
+                          name="OutputColumnLineageID">#{Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Price]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Задача потока данных\Union All.Inputs[Входные данные 1 Union All]"
+                  hasSideEffects="true"
+                  name="Входные данные 1 Union All">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Union All.Inputs[Входные данные 1 Union All].Columns[SourceProductID]"
+                      cachedDataType="i4"
+                      cachedName="SourceProductID"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SourceProductID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID журнала преобразований выходного столбца"
+                          name="OutputColumnLineageID">#{Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourceProductID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Union All.Inputs[Входные данные 1 Union All].Columns[Title]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Title"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Title]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID журнала преобразований выходного столбца"
+                          name="OutputColumnLineageID">#{Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Title]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Union All.Inputs[Входные данные 1 Union All].Columns[Price]"
+                      cachedDataType="cy"
+                      cachedName="Price"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Price]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID журнала преобразований выходного столбца"
+                          name="OutputColumnLineageID">#{Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Price]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Union All.Inputs[Входные данные 1 Union All].Columns[SourceID]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="SourceID"
+                      lineageId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SourceID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID журнала преобразований выходного столбца"
+                          name="OutputColumnLineageID">#{Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourseID]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Задача потока данных\Union All.Inputs[Входные данные 2 Union All]"
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Входные данные 2 Union All">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1]"
+                  name="Union All Выход 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourceProductID]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourceProductID]"
+                      name="SourceProductID" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Title]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Title]"
+                      name="Title" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Price]"
+                      dataType="cy"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Price]"
+                      name="Price" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourseID]"
+                      codePage="1251"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourseID]"
+                      name="SourseID" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\Команда OLE DB"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Команда OLE DB;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;2"
+              description="Выполняет инструкцию SQL для каждой строки в потоке данных. Пример: вызов хранимой процедуры &quot;new employee setup&quot; для всех строк в таблице &quot;new employees&quot;. Примечание. Выполнение инструкции SQL для всех строк большого потока данных может занять длительное время."
+              name="Команда OLE DB"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">
+DECLARE @TargetID int=?
+DECLARE @Title nvarchar(50)=?
+DECLARE @Price money=?
+
+IF(EXISTS(
+      SELECT Title,Price
+      FROM Products
+      WHERE ID=@TargetID
+      EXCEPT
+      SELECT @Title,@Price
+    )
+  )
+BEGIN
+  UPDATE Products
+  SET
+    Title=@Title,
+    Price=@Price,
+    UpdatedOn=GETDATE()
+  WHERE ID=@TargetID
+END
+</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\Команда OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{036A4A65-6D7D-4838-95C9-345A0BEE5477}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Target]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB]"
+                  errorOrTruncationOperation="Выполнение команды"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход команды OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB].Columns[TargetID]"
+                      cachedDataType="i4"
+                      cachedName="TargetID"
+                      externalMetadataColumnId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB].ExternalColumns[Param_0]"
+                      lineageId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[TargetID]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB].Columns[Title]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Title"
+                      externalMetadataColumnId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB].ExternalColumns[Param_1]"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Title]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB].Columns[Price]"
+                      cachedDataType="cy"
+                      cachedName="Price"
+                      externalMetadataColumnId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB].ExternalColumns[Param_2]"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[Price]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB].ExternalColumns[Param_0]"
+                      dataType="i4"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Сведения о параметрах. Соответствуют значениям DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="50"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Сведения о параметрах. Соответствуют значениям DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB].ExternalColumns[Param_2]"
+                      dataType="cy"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Сведения о параметрах. Соответствуют значениям DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Команда OLE DB.Outputs[Выход команды OLE DB]"
+                  exclusionGroup="1"
+                  name="Выход команды OLE DB"
+                  synchronousInputId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Команда OLE DB.Outputs[Вывод ошибок команды OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок команды OLE DB"
+                  synchronousInputId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Команда OLE DB.Outputs[Вывод ошибок команды OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Команда OLE DB.Outputs[Вывод ошибок команды OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Команда OLE DB.Outputs[Вывод ошибок команды OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Команда OLE DB.Outputs[Вывод ошибок команды OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\Многоадресная рассылка"
+              componentClassID="Microsoft.Multicast"
+              contactInfo="Многоадресная рассылка;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;0"
+              description="Распределяет все входные строки между всеми строками в одном или нескольких выходах. Пример: разбиение потока данных на ветви, чтобы создать копию данных, в которой некоторые значения перед передачей внешним партнерам будут скрыты."
+              name="Многоадресная рассылка">
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных\Многоадресная рассылка.Inputs[Многоадресная рассылка Вход 1]"
+                  name="Многоадресная рассылка Вход 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Многоадресная рассылка.Outputs[Многоадресная рассылка Выход 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Многоадресная рассылка Выход 1"
+                  synchronousInputId="Package\Задача потока данных\Многоадресная рассылка.Inputs[Многоадресная рассылка Вход 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Многоадресная рассылка.Outputs[Выход многоадресной рассылки 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Выход многоадресной рассылки 1"
+                  synchronousInputId="Package\Задача потока данных\Многоадресная рассылка.Inputs[Многоадресная рассылка Вход 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Многоадресная рассылка.Outputs[Выход многоадресной рассылки 2]"
+                  dangling="true"
+                  deleteOutputOnPathDetached="true"
+                  name="Выход многоадресной рассылки 2"
+                  synchronousInputId="Package\Задача потока данных\Многоадресная рассылка.Inputs[Многоадресная рассылка Вход 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\Уточняющий запрос"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Уточняющий запрос;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;6"
+              description="Присоединяет дополнительные столбцы к потоку данных путем поиска значений в таблице. Пример: соединение со столбцом &quot;employee id&quot; таблицы employees позволяет получить значения &quot;hire date&quot; и &quot;employee name&quot;. Рекомендуется воспользоваться этим преобразованием, если таблица подстановки не помещается в памяти."
+              name="Уточняющий запрос"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая формирует таблицу уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+  SourceID,
+  SourceProductID,
+  ID TargetID
+FROM Products</property>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая использует параметры для формирования таблицы уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT
+  SourceID,
+  SourceProductID,
+  ID TargetID
+FROM Products) [refTable]
+where [refTable].[SourceProductID] = ? and [refTable].[SourceID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип соединения, используемого для доступа к эталонному набору данных."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип кэша таблицы уточняющих запросов."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает, как преобразование &quot;Уточняющий запрос&quot; обрабатывает строки без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает долю кэша (в процентах), выделенную для строк без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Максимальный объем памяти для кэша ссылок на 32-разрядной платформе."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Максимальный объем памяти для кэша ссылок на 64-разрядной платформе."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает, следует ли ссылаться на метаданные в формате XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SourceID" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1251"/&gt;&lt;referenceColumn name="SourceProductID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TargetID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Задает список идентификаторов журнала обращений и преобразований, сопоставляемый с параметрами, которые использует инструкция SQL в свойстве SQLCommand. Элементы списка разделяются точками с запятой."
+                  name="ParameterMap">#{Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourceProductID]};#{Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourseID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Определяет, должны ли повторяющиеся ключи в ссылочных данных обрабатываться как ошибки при использовании режима полного кэширования."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\Уточняющий запрос.Connections[OleDbConnection]"
+                  connectionManagerID="{036A4A65-6D7D-4838-95C9-345A0BEE5477}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Target]"
+                  description="Диспетчер соединений, используемый для доступа к данным уточняющих запросов."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+                  name="Ввод преобразования &quot;Уточняющий запрос&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;].Columns[SourceProductID]"
+                      cachedDataType="i4"
+                      cachedName="SourceProductID"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourceProductID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, который соединен с данным столбцом."
+                          name="JoinToReferenceColumn">SourceProductID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;].Columns[SourseID]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="SourseID"
+                      lineageId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1].Columns[SourseID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, который соединен с данным столбцом."
+                          name="JoinToReferenceColumn">SourceID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+                  errorOrTruncationOperation="Уточняющий запрос"
+                  exclusionGroup="1"
+                  name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[TargetID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Копировать столбец"
+                      lineageId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[TargetID]"
+                      name="TargetID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn">TargetID</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Выход несовпадающих строк уточняющего запроса]"
+                  description="Вывод преобразования &quot;Уточняющий запрос&quot;, которое обрабатывает строки без совпадающих элементов в эталонном наборе данных. Используйте этот выход, если свойство NoMatchBehavior имеет значение &quot;Отправить строки без совпадающих элементов в выход несовпадающих строк&quot;."
+                  exclusionGroup="1"
+                  name="Выход несовпадающих строк уточняющего запроса"
+                  synchronousInputId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Задача потока данных.Paths[Union All Выход 1]"
+              endId="Package\Задача потока данных\Derived Column.Inputs[Вход производного столбца]"
+              name="Union All Выход 1"
+              startId="Package\Задача потока данных\Union All.Outputs[Union All Выход 1]" />
+            <path
+              refId="Package\Задача потока данных.Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+              endId="Package\Задача потока данных\Команда OLE DB.Inputs[Вход команды OLE DB]"
+              name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+              startId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]" />
+            <path
+              refId="Package\Задача потока данных.Paths[Выход источника &quot;OLE DB&quot;]"
+              endId="Package\Задача потока данных\Union All.Inputs[Union All Вход 1]"
+              name="Выход источника &quot;OLE DB&quot;"
+              startId="Package\Задача потока данных\Sourse A.Outputs[Выход источника &quot;OLE DB&quot;]" />
+            <path
+              refId="Package\Задача потока данных.Paths[Выход источника &quot;OLE DB&quot;1]"
+              endId="Package\Задача потока данных\Union All.Inputs[Входные данные 1 Union All]"
+              name="Выход источника &quot;OLE DB&quot;"
+              startId="Package\Задача потока данных\Sourse B.Outputs[Выход источника &quot;OLE DB&quot;]" />
+            <path
+              refId="Package\Задача потока данных.Paths[Выход многоадресной рассылки 1]"
+              endId="Package\Задача потока данных\To LastAddetProducts.Inputs[Вход назначения &quot;OLE DB&quot;]"
+              name="Выход многоадресной рассылки 1"
+              startId="Package\Задача потока данных\Многоадресная рассылка.Outputs[Выход многоадресной рассылки 1]" />
+            <path
+              refId="Package\Задача потока данных.Paths[Выход несовпадающих строк уточняющего запроса]"
+              endId="Package\Задача потока данных\Многоадресная рассылка.Inputs[Многоадресная рассылка Вход 1]"
+              name="Выход несовпадающих строк уточняющего запроса"
+              startId="Package\Задача потока данных\Уточняющий запрос.Outputs[Выход несовпадающих строк уточняющего запроса]" />
+            <path
+              refId="Package\Задача потока данных.Paths[Выход производного столбца]"
+              endId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+              name="Выход производного столбца"
+              startId="Package\Задача потока данных\Derived Column.Outputs[Выход производного столбца]" />
+            <path
+              refId="Package\Задача потока данных.Paths[Многоадресная рассылка Выход 1]"
+              endId="Package\Задача потока данных\To Products.Inputs[Вход назначения &quot;OLE DB&quot;]"
+              name="Многоадресная рассылка Выход 1"
+              startId="Package\Задача потока данных\Многоадресная рассылка.Outputs[Многоадресная рассылка Выход 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{AE53DC9B-1FB4-4AAE-BA80-B6E863328B96}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Задача потока данных" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="192,42"
+          Id="Package\Задача потока данных"
+          TopLeft="103,187" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Execute SQL Task"
+          TopLeft="113,23" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="197.25,65">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,122"
+              Start="0,0"
+              End="0,114.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,114.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Задача потока данных">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="123,42"
+          Id="Package\Задача потока данных\Sourse A"
+          TopLeft="71,62" />
+        <NodeLayout
+          Size="123,42"
+          Id="Package\Задача потока данных\Sourse B"
+          TopLeft="220,60" />
+        <NodeLayout
+          Size="123,42"
+          Id="Package\Задача потока данных\Union All"
+          TopLeft="150,225" />
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Выход источника &quot;OLE DB&quot;]"
+          TopLeft="132.5,104">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="59.8333333333333,121"
+              Start="0,0"
+              End="59.8333333333333,113.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.6677367576244" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,67.6677367576244"
+                    Point2="0,71.6677367576244"
+                    Point3="4,71.6677367576244" />
+                  <mssgle:LineSegment
+                    End="55.8333333333333,71.6677367576244" />
+                  <mssgle:CubicBezierSegment
+                    Point1="55.8333333333333,71.6677367576244"
+                    Point2="59.8333333333333,71.6677367576244"
+                    Point3="59.8333333333333,75.6677367576244" />
+                  <mssgle:LineSegment
+                    End="59.8333333333333,113.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Выход источника &quot;OLE DB&quot;1]"
+          TopLeft="281.5,102">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-50.8333333333333,123"
+              Start="0,0"
+              End="-50.8333333333333,115.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.8523274478331" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,68.8523274478331"
+                    Point2="0,72.8523274478331"
+                    Point3="-4,72.8523274478331" />
+                  <mssgle:LineSegment
+                    End="-46.8333333333333,72.8523274478331" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-46.8333333333333,72.8523274478331"
+                    Point2="-50.8333333333333,72.8523274478331"
+                    Point3="-50.8333333333333,76.8523274478331" />
+                  <mssgle:LineSegment
+                    End="-50.8333333333333,115.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Задача потока данных\Derived Column"
+          TopLeft="136,333" />
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Union All Выход 1]"
+          TopLeft="212.75,267">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66"
+              Start="0,0"
+              End="0,58.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Задача потока данных\Уточняющий запрос"
+          TopLeft="122,433" />
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Выход производного столбца]"
+          TopLeft="213,375">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Задача потока данных\To Products"
+          TopLeft="18.6666666666667,668.111111111111" />
+        <NodeLayout
+          Size="162,42"
+          Id="Package\Задача потока данных\Команда OLE DB"
+          TopLeft="258.305555555556,534.916666666667" />
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+          TopLeft="240.666666666667,475">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="98.6388888888889,59.916666666667"
+              Start="0,0"
+              End="98.6388888888889,52.416666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2834067547725" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2834067547725"
+                    Point2="0,24.2834067547725"
+                    Point3="4,24.2834067547725" />
+                  <mssgle:LineSegment
+                    End="94.6388888888889,24.2834067547725" />
+                  <mssgle:CubicBezierSegment
+                    Point1="94.6388888888889,24.2834067547725"
+                    Point2="98.6388888888889,24.2834067547725"
+                    Point3="98.6388888888889,28.2834067547725" />
+                  <mssgle:LineSegment
+                    End="98.6388888888889,52.416666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-85.3704188368056,29.2834067547725,269.3797265625,12"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="205,42"
+          Id="Package\Задача потока данных\Многоадресная рассылка"
+          TopLeft="33.3333333333334,570" />
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Выход несовпадающих строк уточняющего запроса]"
+          TopLeft="183.333333333333,475">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-47.4999999999999,95.0000000000001"
+              Start="0,0"
+              End="-47.4999999999999,87.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5022026431718" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.5022026431718"
+                    Point2="0,38.5022026431718"
+                    Point3="-4,38.5022026431718" />
+                  <mssgle:LineSegment
+                    End="-43.4999999999999,38.5022026431718" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-43.4999999999999,38.5022026431718"
+                    Point2="-47.4999999999999,38.5022026431718"
+                    Point3="-47.4999999999999,42.5022026431718" />
+                  <mssgle:LineSegment
+                    End="-47.4999999999999,87.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-143.348359375,43.5022026431718,239.19671875,11.2822265625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Многоадресная рассылка Выход 1]"
+          TopLeft="103,612">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-15.8333333333334,56.1111111111111"
+              Start="0,0"
+              End="-15.8333333333334,48.6111111111111">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.7051737119501" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.7051737119501"
+                    Point2="0,22.7051737119501"
+                    Point3="-4,22.7051737119501" />
+                  <mssgle:LineSegment
+                    End="-11.8333333333334,22.7051737119501" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-11.8333333333334,22.7051737119501"
+                    Point2="-15.8333333333334,22.7051737119501"
+                    Point3="-15.8333333333334,26.7051737119501" />
+                  <mssgle:LineSegment
+                    End="-15.8333333333334,48.6111111111111" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="184,42"
+          Id="Package\Задача потока данных\To LastAddetProducts"
+          TopLeft="220,671.111111111111" />
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Выход многоадресной рассылки 1]"
+          TopLeft="168.666666666667,612">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="143.333333333333,59.1111111111111"
+              Start="0,0"
+              End="143.333333333333,51.6111111111111">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.919113692589" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.919113692589"
+                    Point2="0,23.919113692589"
+                    Point3="4,23.919113692589" />
+                  <mssgle:LineSegment
+                    End="139.333333333333,23.919113692589" />
+                  <mssgle:CubicBezierSegment
+                    Point1="139.333333333333,23.919113692589"
+                    Point2="143.333333333333,23.919113692589"
+                    Point3="143.333333333333,27.919113692589" />
+                  <mssgle:LineSegment
+                    End="143.333333333333,51.6111111111111" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных\Sourse A">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных\Sourse B">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных\Уточняющий запрос">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных\To Products">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных\To LastAddetProducts">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
